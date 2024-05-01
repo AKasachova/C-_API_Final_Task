@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy API image
-        run: |
+        run: 
           docker pull coherentsolutions/rest-training:2.0
           docker run -d -p 8001:8082 coherentsolutions/rest-training:2.0
       - name: Install .NET SDK
