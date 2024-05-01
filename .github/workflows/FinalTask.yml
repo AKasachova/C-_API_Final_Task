@@ -1,0 +1,51 @@
+name: API Testing Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy API image
+        run: |
+          docker pull coherentsolutions/rest-training:2.0
+          docker run -d -p 8001:8082 coherentsolutions/rest-training:2.0
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Restore dependencies
+        run: dotnet restore APIAutomation.csproj  
+
+      - name: Build framework
+        run: dotnet build --configuration Release 
+
+      - name: Execute tests
+        run: dotnet test --configuration Release --settings TestSettings.runsettings
+
+      - name: Load test report history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: API_Final_Task\bin\Debug\net8.0\allure-results
+
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
