@@ -38,7 +38,7 @@ jobs:
         with:
           gh_pages: gh-pages
           allure_history: allure-history
-          allure_results: API_Final_Task\bin\Debug\net8.0\allure-results
+          allure_results: bin\Debug\net8.0\allure-results
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v4
