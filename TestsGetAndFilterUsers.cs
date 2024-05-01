@@ -21,7 +21,8 @@ namespace APIAutomation.Tests
         [SetUp]
         public void Setup()
         {
-            "GetAndFilterUsersTests".LogInfo("Setting up tests...");
+            
+            logger.Info("Setting up tests...");
 
             var client = ClientForReadScope.GetInstance();
             _client = client.GetRestClient();
@@ -32,7 +33,7 @@ namespace APIAutomation.Tests
         [AllureDescription("Test to get all expected users stored in the application for now")]
         public void GetAllUsers_ReturnsAllExpectedUsers_Test()
         {
-            "GetAllUsers_ReturnsAllExpectedUsers_Test".LogInfo("Starting the test...");
+            logger.Info("Starting the test...");
 
             try 
             {
@@ -61,12 +62,12 @@ namespace APIAutomation.Tests
             
                 });
 
-                "GetAllUsers_ReturnsAllExpectedUsers_Test".LogInfo("The test completed successfully.");
+                logger.Info("The test completed successfully.");
                 AllureLifecycle.Instance.StopStep();
             }
             catch (Exception ex)
             {
-                "GetAllUsers_ReturnsAllExpectedUsers_Test".LogError($"An error occured: {ex.Message}");
+                logger.Info($"An error occured: {ex.Message}");
             }
         }
 
@@ -74,7 +75,7 @@ namespace APIAutomation.Tests
         [AllureDescription("Test to get all users older than set parameter")]
         public void GetFilteredUsersOlderThan_ReturnsAllExpectedUsers_Test()
         {
-            "GetFilteredUsersOlderThan_ReturnsAllExpectedUsers_Test".LogInfo("Starting the test...");
+            logger.Info("Starting the test...");
 
             try
             {
@@ -101,12 +102,12 @@ namespace APIAutomation.Tests
                     Assert.That((int)response.StatusCode, Is.EqualTo(200));
                     Assert.That(actualUsers, Is.EquivalentTo(expectedUsers), "Received users list doesn't correspond expected one!");
                 });
-                "GetFilteredUsersOlderThan_ReturnsAllExpectedUsers_Test".LogInfo("The test completed successfully.");
+                logger.Info("The test completed successfully.");
                 AllureLifecycle.Instance.StopStep();
             }
             catch (Exception ex)
             {
-                "GetFilteredUsersOlderThan_ReturnsAllExpectedUsers_Test".LogError($"Error occured: {ex.Message}");
+                logger.Info($"Error occured: {ex.Message}");
             }
         }
 
@@ -114,7 +115,7 @@ namespace APIAutomation.Tests
         [AllureDescription("Test to get all users yanger than set parameter")]
         public void GetFilteredUsersYoungerThan_ReturnsAllExpectedUsers_Test()
         {
-            "GetFilteredUsersYoungerThan_ReturnsAllExpectedUsers_Test".LogInfo("Starting the test...");
+            logger.Info("Starting the test...");
 
             try
             {
@@ -139,12 +140,12 @@ namespace APIAutomation.Tests
                     Assert.That(actualUsers, Is.EquivalentTo(expectedUsers), "Received users list doesn't correspond expected one!");
                 });
 
-                "GetFilteredUsersYoungerThan_ReturnsAllExpectedUsers_Test".LogInfo("The test completed successfully.");
+                logger.Info("The test completed successfully.");
                 AllureLifecycle.Instance.StopStep();
             }
             catch (Exception ex)
             {
-                "GetFilteredUsersYoungerThan_ReturnsAllExpectedUsers_Test".LogError($"Error occured: {ex.Message}");
+                logger.Info($"Error occured: {ex.Message}");
             }
         }
 
@@ -152,7 +153,7 @@ namespace APIAutomation.Tests
         [AllureDescription("Test to get all users with certain sex as set parameter")]
         public void GetFilteredUsersSex_ReturnsAllExpectedUsers_Test()
         {
-            "GetFilteredUsersSex_ReturnsAllExpectedUsers_Test".LogInfo("Starting the test...");
+            logger.Info("Starting the test...");
 
             try
             {
@@ -180,19 +181,19 @@ namespace APIAutomation.Tests
                     Assert.That(actualUsers, Is.EquivalentTo(expectedUsers), "Received users list doesn't correspond expected one!");
                 });
 
-                "GetFilteredUsersSex_ReturnsAllExpectedUsers_Test".LogInfo("The test completed successfully.");
+                logger.Info("The test completed successfully.");
                 AllureLifecycle.Instance.StopStep();
             }
             catch (Exception ex)
             {
-                "GetFilteredUsersSex_ReturnsAllExpectedUsers_Test".LogError($"Error occured: {ex.Message}");
+                logger.Info($"Error occured: {ex.Message}");
             }
         }
 
         [TearDown]
         public void TearDown()
         {
-            "GetAndFilterUsersTests".LogInfo("Tearing down tests...");
+            logger.Info("Tearing down tests...");
             LogManager.Shutdown();
         }
     }  
